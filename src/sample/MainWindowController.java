@@ -10,5 +10,5 @@ public class MainWindowController extends Controller {
     private Label label;
     @FXML
     private TextField textField;
-    
+
 }
