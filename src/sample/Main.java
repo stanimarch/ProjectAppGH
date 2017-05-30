@@ -55,7 +55,8 @@ public class Main extends Application {
 
             controller3 = loader.getController();
             controller3.setMain(this);
-            controller3.tabellenAnlegen(); // erste Tabelle wird angelegt
+            controller3.tabellenAnlegen();
+            controller3.aktualisieren();
         } catch (IOException e) {
             e.printStackTrace();
         }

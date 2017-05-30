@@ -14,9 +14,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button mnemonicParsing="false" text="Tabelle Produkt" />
-                  <Button mnemonicParsing="false" text="Tabelle Lager" />
-                  <Button mnemonicParsing="false" text="Tabelle Belegung" />
+                  <Button mnemonicParsing="false" onAction="#zeigTabelleProdukt" text="Tabelle Produkt" />
+                  <Button mnemonicParsing="false" onAction="#zeigTabelleLager" text="Tabelle Lager" />
+                  <Button mnemonicParsing="false" onAction="#zeigTabelleBelegung" text="Tabelle Belegung" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="75.0">

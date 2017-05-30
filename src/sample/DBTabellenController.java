@@ -14,9 +14,9 @@ public class DBTabellenController extends Controller {
 
     @FXML
     TableView table;
-    TableView<Product> tableProdukt;
-    TableView<Lager> tableLager;
-    TableView<Belegung> tableBelegung;
+    TableView<Product> tableProdukt = new TableView<>();
+    TableView<Lager> tableLager = new TableView<>();
+    TableView<Belegung> tableBelegung = new TableView<>();
 
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
@@ -31,19 +31,28 @@ public class DBTabellenController extends Controller {
 
     @FXML
     public void aktualisieren() {
+        productListe = getProductListe();
+        lagerListe = getLagerListe();
     }
 
-    void setTableProdukt() {
+    @FXML
+    public void zeigTabelleProdukt() {
         table = tableProdukt;
+        aktualisieren();
     }
 
-    void setTableLager() {
-        table = null;
+    @FXML
+    public void zeigTabelleLager() {
+        table = tableLager;
+        aktualisieren();
     }
 
-    void setTableBelegung() {
-        table = null;
+    @FXML
+    public void zeigTabelleBelegung() {
+        table = tableBelegung;
+        aktualisieren();
     }
+
 
     void tabellenAnlegen() {
 
@@ -59,7 +68,7 @@ public class DBTabellenController extends Controller {
         mengeColumn.setMinWidth(150);
         mengeColumn.setCellValueFactory(new PropertyValueFactory<>("menge"));
 
-        tableProdukt.setItems(getProduct());
+        tableProdukt.setItems(getProductListe());
         tableProdukt.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
         table = tableProdukt;
 
@@ -104,8 +113,8 @@ public class DBTabellenController extends Controller {
         tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);*/
     }
 
-    ObservableList<Product> getProduct() {
-        ObservableList<Product> products = FXCollections.observableArrayList();
+    ObservableList<Product> getProductListe() {
+        productListe = FXCollections.observableArrayList();
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
@@ -124,7 +133,7 @@ public class DBTabellenController extends Controller {
                 //System.out.print(rs.getString("prnr") + "\t");
                 //System.out.print(rs.getString("name") + "\t");
                 //System.out.println(rs.getString("menge") + "\t");
-                products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3)));
+                productListe.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
             rs.close();
             ps.close();
@@ -133,8 +142,7 @@ public class DBTabellenController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        this.productListe = products;
-        return products;
+        return productListe;
     }
 
     ObservableList<Lager> getLagerListe() {
@@ -166,7 +174,6 @@ public class DBTabellenController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        this.lagerListe = lagerListe;
         return lagerListe;
     }
 
@@ -203,4 +210,5 @@ public class DBTabellenController extends Controller {
         this.productListe = products;
         return products;
     }*/
+
 }
