@@ -1,5 +1,7 @@
 package sample;
 
+import controller.DBTabellenController;
+
 /**
  * Created by Stanislav on 30.05.2017.
  */

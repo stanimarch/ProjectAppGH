@@ -1,4 +1,4 @@
-package sample;
+package controller;
 
 
 import javafx.collections.FXCollections;
@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import datentypen.Belegung;
+import datentypen.Lager;
+import datentypen.Product;
 
 import java.sql.*;
 
@@ -14,6 +17,7 @@ public class DBTabellenController extends Controller {
 
     @FXML
     TableView table;
+
     TableView<Product> tableProdukt = new TableView<>();
     TableView<Lager> tableLager = new TableView<>();
     TableView<Belegung> tableBelegung = new TableView<>();
@@ -25,31 +29,45 @@ public class DBTabellenController extends Controller {
     @FXML
     @Override
     public void showTabellenWindow() {
-        table = new TableView<>();
+        aktualisieren();
         main.changeScene(3);
     }
 
     @FXML
     public void aktualisieren() {
         productListe = getProductListe();
-        lagerListe = getLagerListe();
+        //lagerListe = getLagerListe();
     }
 
     @FXML
     public void zeigTabelleProdukt() {
         table = tableProdukt;
         aktualisieren();
+        //table.rem
     }
 
     @FXML
     public void zeigTabelleLager() {
-        table = tableLager;
-        aktualisieren();
+        TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
+        renrColumn.setMinWidth(150);
+        renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
+
+        TableColumn<Lager, String> maxPlatzColumn = new TableColumn<>("Kapazität");
+        maxPlatzColumn.setMinWidth(200);
+        maxPlatzColumn.setCellValueFactory(new PropertyValueFactory<>("maxPlatz"));
+
+        TableColumn<Lager, String> platzFreiColumn = new TableColumn<>("NOCH FREI");
+        platzFreiColumn.setMinWidth(150);
+        platzFreiColumn.setCellValueFactory(new PropertyValueFactory<>("platzFrei"));
+
+        table.setItems(getLagerListe());
+        table.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
+        table.refresh();
     }
 
     @FXML
     public void zeigTabelleBelegung() {
-        table = tableBelegung;
+        //table = tableBelegung;
         aktualisieren();
     }
 
@@ -68,11 +86,13 @@ public class DBTabellenController extends Controller {
         mengeColumn.setMinWidth(150);
         mengeColumn.setCellValueFactory(new PropertyValueFactory<>("menge"));
 
-        tableProdukt.setItems(getProductListe());
-        tableProdukt.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
-        table = tableProdukt;
+        table.setItems(getProductListe());
+        table.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
+        table.setItems(getProductListe());
+        table.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
+        //table = tableProdukt;
 
-
+        /*
         TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
         renrColumn.setMinWidth(150);
         renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
@@ -86,7 +106,7 @@ public class DBTabellenController extends Controller {
         platzFreiColumn.setCellValueFactory(new PropertyValueFactory<>("platzFrei"));
 
         tableLager.setItems(getLagerListe());
-        tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
+        tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);*/
 
 
         /*TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");

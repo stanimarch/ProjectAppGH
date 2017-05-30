@@ -1,9 +1,10 @@
-package sample;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import controller.BarcodeEinscannenWindowController;
+import controller.DBTabellenController;
+import controller.MainWindowController;
 
 import java.io.IOException;
 
@@ -55,8 +56,9 @@ public class Main extends Application {
 
             controller3 = loader.getController();
             controller3.setMain(this);
+
             controller3.tabellenAnlegen();
-            controller3.aktualisieren();
+            //controller3.aktualisieren();
         } catch (IOException e) {
             e.printStackTrace();
         }

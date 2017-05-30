@@ -1,4 +1,4 @@
-package sample;
+package datentypen;
 
 
 public class Product {
