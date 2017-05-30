@@ -1,4 +1,4 @@
-package sample;
+package testklassen;
 
 import controller.DBTabellenController;
 
