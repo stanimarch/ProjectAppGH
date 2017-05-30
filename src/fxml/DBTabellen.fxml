@@ -28,7 +28,7 @@
                   </Text>
                </children>
             </HBox>
-            <TableView fx:id="table" maxHeight="300.0" maxWidth="500.0" minHeight="300.0" minWidth="500.0" />
+            <Pane fx:id="pane" maxHeight="300.0" maxWidth="500.0" minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" />
             <HBox alignment="CENTER" maxHeight="50.0" maxWidth="500.0" prefHeight="100.0" prefWidth="300.0" spacing="250.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#aktualisieren" text="Aktualisierung" />

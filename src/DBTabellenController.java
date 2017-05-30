@@ -4,6 +4,7 @@ import datentypen.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,8 +16,8 @@ public class DBTabellenController extends Controller {
 
     // ну я думаю, что эту "table" можно удалить,
     // так как толку мало от этой таблицы
-    @FXML
-    TableView table;
+    /*@FXML
+    TableView table;*/
 
     @FXML
     Pane pane;
@@ -25,8 +26,10 @@ public class DBTabellenController extends Controller {
     TableView<Product> tableProdukt = new TableView<>();
     TableView<Lager> tableLager = new TableView<>();
     TableView<Belegung> tableBelegung = new TableView<>();
+    TableView table = new TableView();
 
     //в теории, если эти одну из этих 3 переменных изменить, то должно и таблица в layout изменится
+
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
     ObservableList<Belegung> belegungListe;
@@ -34,40 +37,40 @@ public class DBTabellenController extends Controller {
     @FXML
     @Override // метода, что бы показать главное окно
     public void showTabellenWindow() {
+        System.out.println("public void showTabellenWindow()");
         aktualisieren();
         main.changeScene(3);
     }
 
     @FXML
     public void aktualisieren() {
+        System.out.println("public void aktualisieren()");
         productListe = getProductListe();
-        //lagerListe = getLagerListe();
+        tableProdukt.setItems(productListe);
+        lagerListe = getLagerListe();
+        tableLager.setItems(lagerListe);
     }
 
     @FXML
     public void zeigTabelleProdukt() {
-        table = tableProdukt;
-        aktualisieren();
-        //table.rem
+        System.out.println("public void zeigTabelleProdukt()");
+
+
+        pane.getChildren().clear();
+        pane.getChildren().addAll(tableProdukt);
+        pane.setMaxSize(500, 300);
+        main.primaryStage.setScene(new Scene(pane));
     }
 
     @FXML
     public void zeigTabelleLager() {
-        TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
-        renrColumn.setMinWidth(150);
-        renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
+        System.out.println("public void zeigTabelleLager()");
 
-        TableColumn<Lager, String> maxPlatzColumn = new TableColumn<>("Kapazität");
-        maxPlatzColumn.setMinWidth(200);
-        maxPlatzColumn.setCellValueFactory(new PropertyValueFactory<>("maxPlatz"));
 
-        TableColumn<Lager, String> platzFreiColumn = new TableColumn<>("NOCH FREI");
-        platzFreiColumn.setMinWidth(150);
-        platzFreiColumn.setCellValueFactory(new PropertyValueFactory<>("platzFrei"));
-
-        table.setItems(getLagerListe());
-        table.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
-        table.refresh();
+        pane.getChildren().clear();
+        pane.getChildren().addAll(tableLager);
+        pane.setMaxSize(500, 300);
+        main.primaryStage.setScene(new Scene(pane));
     }
 
     @FXML
@@ -91,14 +94,11 @@ public class DBTabellenController extends Controller {
         mengeColumn.setMinWidth(150);
         mengeColumn.setCellValueFactory(new PropertyValueFactory<>("menge"));
 
-        table.setItems(getProductListe());
-        table.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
-        table.setItems(getProductListe());
-        table.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
-        //table = tableProdukt;
+        tableProdukt.setItems(getProductListe());
+        tableProdukt.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
+        tableProdukt.setMaxSize(500, 300);
 
 
-        /*
         TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
         renrColumn.setMinWidth(150);
         renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
@@ -112,8 +112,8 @@ public class DBTabellenController extends Controller {
         platzFreiColumn.setCellValueFactory(new PropertyValueFactory<>("platzFrei"));
 
         tableLager.setItems(getLagerListe());
-        tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);*/
-
+        tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
+        tableLager.setMaxSize(500, 300);
 
         /*TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");
         ebeneColumn.setMinWidth(150);
@@ -140,7 +140,10 @@ public class DBTabellenController extends Controller {
     }
 
     ObservableList<Product> getProductListe() {
-        productListe = FXCollections.observableArrayList();
+        if (productListe == null)
+            productListe = FXCollections.observableArrayList();
+        else
+            productListe.clear();
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
@@ -172,7 +175,11 @@ public class DBTabellenController extends Controller {
     }
 
     ObservableList<Lager> getLagerListe() {
-        lagerListe = FXCollections.observableArrayList();
+        if (lagerListe == null)
+            lagerListe = FXCollections.observableArrayList();
+        else
+            lagerListe.clear();
+
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
