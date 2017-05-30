@@ -1,5 +1,5 @@
 package sample;
 
 
-public class BarcodeEinscannenWindowController  extends Controller {
+public class BarcodeEinscannenWindowController extends Controller {
 }

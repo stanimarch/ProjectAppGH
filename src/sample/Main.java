@@ -28,6 +28,7 @@ public class Main extends Application {
         primaryStage.setTitle("Projekt-App");
 
         initAllScene();
+
         primaryStage.setMinHeight(400.0);
         primaryStage.setMinWidth(500.0);
 
@@ -36,7 +37,6 @@ public class Main extends Application {
     }
 
     private void initAllScene() {
-
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
             scene1 = new Scene(loader.load());
@@ -56,7 +56,6 @@ public class Main extends Application {
             controller3 = loader.getController();
             controller3.setMain(this);
             controller3.tabellenAnlegen(); // erste Tabelle wird angelegt
-
         } catch (IOException e) {
             e.printStackTrace();
         }
