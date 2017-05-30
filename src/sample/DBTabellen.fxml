@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,25 +10,31 @@
 
 <AnchorPane minHeight="600.0" minWidth="500.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DBTabellenController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" spacing="30.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Tabelle Produkt" />
+                  <Button mnemonicParsing="false" text="Tabelle Lager" />
+                  <Button mnemonicParsing="false" text="Tabelle Belegung" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="75.0">
                <children>
                   <Text layoutX="46.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabelle PRODUKT">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="176.0" layoutY="56.0" mnemonicParsing="false" text="Aktualisierung" />
-                  <Button layoutX="300.0" layoutY="56.0" mnemonicParsing="false" onAction="#showMainWindow" text="Zurück" />
                </children>
             </HBox>
-            <TableView fx:id="table" prefHeight="200.0" prefWidth="422.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
+            <TableView fx:id="table" maxHeight="300.0" maxWidth="500.0" minHeight="300.0" minWidth="500.0" />
+            <HBox alignment="CENTER" maxHeight="50.0" maxWidth="500.0" prefHeight="100.0" prefWidth="300.0" spacing="250.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#aktualisieren" text="Aktualisierung" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#showMainWindow" text="Zurück" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

@@ -19,7 +19,7 @@
             <TextField maxWidth="200.0" prefHeight="25.0" prefWidth="100.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button mnemonicParsing="false" text="Speichern" />
+                  <Button mnemonicParsing="false" text="Einlagern" />
                   <Button mnemonicParsing="false" onAction="#showMainWindow" text="Zurück" />
                </children>
             </HBox>

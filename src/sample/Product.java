@@ -2,13 +2,25 @@ package sample;
 
 
 public class Product {
-    int id;
+    String id;
     String farbe;
-    int menge;
+    String menge;
 
-    Product(int id, String farbe, int menge){
+    public Product(String id, String farbe, String menge) {
         this.id = id;
         this.farbe = farbe;
         this.menge = menge;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getFarbe() {
+        return farbe;
+    }
+
+    public String getMenge() {
+        return menge;
     }
 }
