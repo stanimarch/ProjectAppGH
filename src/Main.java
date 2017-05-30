@@ -1,12 +1,7 @@
-package main;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import controller.BarcodeEinscannenWindowController;
-import controller.DBTabellenController;
-import controller.MainWindowController;
 
 import java.io.IOException;
 
@@ -41,19 +36,19 @@ public class Main extends Application {
 
     private void initAllScene() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("controller.MainWindow.fxml"));
             scene1 = new Scene(loader.load());
 
             controller1 = loader.getController();
             controller1.setMain(this);
 
-            loader = new FXMLLoader(Main.class.getResource("BarcodeEinscannen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("controller.BarcodeEinscannen.fxml"));
             scene2 = new Scene(loader.load());
 
             controller2 = loader.getController();
             controller2.setMain(this);
 
-            loader = new FXMLLoader(Main.class.getResource("DBTabellen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("controller.DBTabellen.fxml"));
             scene3 = new Scene(loader.load());
 
             controller3 = loader.getController();
