@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 import java.sql.*;
 
@@ -16,6 +17,9 @@ public class DBTabellenController extends Controller {
     // так как толку мало от этой таблицы
     @FXML
     TableView table;
+
+    @FXML
+    Pane pane;
 
     // а вот эти таблцы я бы оставил
     TableView<Product> tableProdukt = new TableView<>();
@@ -92,6 +96,7 @@ public class DBTabellenController extends Controller {
         table.setItems(getProductListe());
         table.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
         //table = tableProdukt;
+
 
         /*
         TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
