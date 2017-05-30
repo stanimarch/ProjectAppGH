@@ -1,12 +1,12 @@
+import datentypen.Belegung;
+import datentypen.Lager;
+import datentypen.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import datentypen.Belegung;
-import datentypen.Lager;
-import datentypen.Product;
 
 import java.sql.*;
 
