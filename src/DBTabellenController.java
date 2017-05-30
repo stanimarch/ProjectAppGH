@@ -4,7 +4,6 @@ import datentypen.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,10 +25,8 @@ public class DBTabellenController extends Controller {
     TableView<Product> tableProdukt = new TableView<>();
     TableView<Lager> tableLager = new TableView<>();
     TableView<Belegung> tableBelegung = new TableView<>();
-    TableView table = new TableView();
 
     //в теории, если эти одну из этих 3 переменных изменить, то должно и таблица в layout изменится
-
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
     ObservableList<Belegung> belegungListe;
@@ -55,22 +52,18 @@ public class DBTabellenController extends Controller {
     public void zeigTabelleProdukt() {
         System.out.println("public void zeigTabelleProdukt()");
 
-
         pane.getChildren().clear();
         pane.getChildren().addAll(tableProdukt);
         pane.setMaxSize(500, 300);
-        main.primaryStage.setScene(new Scene(pane));
     }
 
     @FXML
     public void zeigTabelleLager() {
         System.out.println("public void zeigTabelleLager()");
 
-
         pane.getChildren().clear();
         pane.getChildren().addAll(tableLager);
         pane.setMaxSize(500, 300);
-        main.primaryStage.setScene(new Scene(pane));
     }
 
     @FXML
