@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.sql.*;
 
@@ -20,6 +21,9 @@ public class DBTabellenController extends Controller {
 
     @FXML
     Pane pane;
+
+    @FXML
+    Text text;
 
     // а вот эти таблцы я бы оставил
     TableView<Product> tableProdukt = new TableView<>();
@@ -53,8 +57,10 @@ public class DBTabellenController extends Controller {
         System.out.println("public void zeigTabelleProdukt()");
 
         pane.getChildren().clear();
+        aktualisieren();
         pane.getChildren().addAll(tableProdukt);
         pane.setMaxSize(500, 300);
+        text.setText("Tabelle PRODUKT");
     }
 
     @FXML
@@ -62,14 +68,17 @@ public class DBTabellenController extends Controller {
         System.out.println("public void zeigTabelleLager()");
 
         pane.getChildren().clear();
+        aktualisieren();
         pane.getChildren().addAll(tableLager);
         pane.setMaxSize(500, 300);
+        text.setText("Tabelle LAGER");
     }
 
     @FXML
     public void zeigTabelleBelegung() {
-        //table = tableBelegung;
-        aktualisieren();
+        pane.getChildren().clear();
+        text.setText("");
+        System.out.println("public void zeigTabelleBelegung()");
     }
 
     //что бы все таблицы инициализировать. То есть, что бы появились заголовки(Spaltenname) в таблицах
