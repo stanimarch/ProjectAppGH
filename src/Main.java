@@ -38,19 +38,19 @@ public class Main extends Application {
 
     private void initAllScene() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("controller.MainWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/MainWindow.fxml"));
             scene1 = new Scene(loader.load());
 
             controller1 = loader.getController();
             controller1.setMain(this);
 
-            loader = new FXMLLoader(Main.class.getResource("controller.BarcodeEinscannen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("fxml/BarcodeEinscannen.fxml"));
             scene2 = new Scene(loader.load());
 
             controller2 = loader.getController();
             controller2.setMain(this);
 
-            loader = new FXMLLoader(Main.class.getResource("controller.DBTabellen.fxml"));
+            loader = new FXMLLoader(Main.class.getResource("fxml/DBTabellen.fxml"));
             scene3 = new Scene(loader.load());
 
             controller3 = loader.getController();
