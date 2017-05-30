@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -67,5 +69,10 @@ public class Main extends Application {
             primaryStage.setScene(scene2);
         else if (window == 3)
             primaryStage.setScene(scene3);
+    }
+
+    public ObservableList<Product> getProduct() {
+        ObservableList<Product> products = FXCollections.observableArrayList();
+        return products;
     }
 }
