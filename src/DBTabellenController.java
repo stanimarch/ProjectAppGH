@@ -4,6 +4,7 @@ import datentypen.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +25,8 @@ public class DBTabellenController extends Controller {
 
     @FXML
     Text text;
+    @FXML
+    Button akt;
 
     // а вот эти таблцы я бы оставил
     TableView<Product> tableProdukt = new TableView<>();
@@ -61,6 +64,9 @@ public class DBTabellenController extends Controller {
         pane.getChildren().addAll(tableProdukt);
         pane.setMaxSize(500, 300);
         text.setText("Tabelle PRODUKT");
+
+        if (akt.isVisible() == false)
+            akt.setVisible(true);
     }
 
     @FXML
@@ -72,6 +78,8 @@ public class DBTabellenController extends Controller {
         pane.getChildren().addAll(tableLager);
         pane.setMaxSize(500, 300);
         text.setText("Tabelle LAGER");
+        if (akt.isVisible() == false)
+            akt.setVisible(true);
     }
 
     @FXML
@@ -79,6 +87,8 @@ public class DBTabellenController extends Controller {
         pane.getChildren().clear();
         text.setText("");
         System.out.println("public void zeigTabelleBelegung()");
+        if (akt.isVisible() == true)
+            akt.setVisible(false);
     }
 
     //что бы все таблицы инициализировать. То есть, что бы появились заголовки(Spaltenname) в таблицах
