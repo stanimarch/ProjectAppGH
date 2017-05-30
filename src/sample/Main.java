@@ -28,7 +28,11 @@ public class Main extends Application {
         primaryStage.setTitle("Projekt-App");
 
         initAllScene();
-        mainWindow();
+        primaryStage.setMinHeight(400.0);
+        primaryStage.setMinWidth(500.0);
+
+        primaryStage.setScene(scene1);
+        primaryStage.show();
     }
 
     private void initAllScene() {
@@ -56,14 +60,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void mainWindow() {
-        primaryStage.setMinHeight(400.0);
-        primaryStage.setMinWidth(500.0);
-
-        primaryStage.setScene(scene1);
-        primaryStage.show();
     }
 
 

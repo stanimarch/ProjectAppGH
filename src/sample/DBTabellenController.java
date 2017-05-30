@@ -15,12 +15,12 @@ public class DBTabellenController extends Controller {
     @FXML
     TableView table;
     TableView<Product> tableProdukt;
-    //TableView<Lager> tableLager;
-    //TableView<Belegung> tableBelegung;
+    TableView<Lager> tableLager;
+    TableView<Belegung> tableBelegung;
 
-    ObservableList<Product> products;
-    //ObservableList<Lager> lager;
-    //ObservableList<Belegung> lager;
+    ObservableList<Product> productListe;
+    ObservableList<Lager> lagerListe;
+    ObservableList<Belegung> belegungListe;
 
     @FXML
     @Override
@@ -64,6 +64,44 @@ public class DBTabellenController extends Controller {
         table = tableProdukt;
 
 
+        TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
+        renrColumn.setMinWidth(150);
+        renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
+
+        TableColumn<Lager, String> maxPlatzColumn = new TableColumn<>("Kapazität");
+        maxPlatzColumn.setMinWidth(200);
+        maxPlatzColumn.setCellValueFactory(new PropertyValueFactory<>("maxPlatz"));
+
+        TableColumn<Lager, String> platzFreiColumn = new TableColumn<>("NOCH FREI");
+        platzFreiColumn.setMinWidth(150);
+        platzFreiColumn.setCellValueFactory(new PropertyValueFactory<>("platzFrei"));
+
+        tableLager.setItems(getLagerListe());
+        tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
+
+
+        /*TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");
+        ebeneColumn.setMinWidth(150);
+        ebeneColumn.setCellValueFactory(new PropertyValueFactory<>("ebene"));
+
+        TableColumn<Belegung, String> regal1Column = new TableColumn<>("REGAL 1");
+        regal1Column.setMinWidth(200);
+        regal1Column.setCellValueFactory(new PropertyValueFactory<>("regal1"));
+
+        TableColumn<Belegung, String> regal2Column = new TableColumn<>("REGAL 2");
+        regal2Column.setMinWidth(150);
+        regal2Column.setCellValueFactory(new PropertyValueFactory<>("regal2"));
+
+        TableColumn<Belegung, String> regal3Column = new TableColumn<>("REGAL 3");
+        regal3Column.setMinWidth(150);
+        regal3Column.setCellValueFactory(new PropertyValueFactory<>("regal3"));
+
+        TableColumn<Belegung, String> regal4Column = new TableColumn<>("REGAL 4");
+        regal4Column.setMinWidth(150);
+        regal4Column.setCellValueFactory(new PropertyValueFactory<>("regal4"));
+
+        tableBelegung.setItems(getBelegungListe());
+        tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);*/
     }
 
     ObservableList<Product> getProduct() {
@@ -74,7 +112,6 @@ public class DBTabellenController extends Controller {
             Connection conn = null;
             //conn = DriverManager.getConnection(url, "db01", "MenPfN9wzcZA");
             conn = DriverManager.getConnection(url, "andr_user", "androiduser");
-            int prnr = 100;
             String sql = "select * from produkt order by prnr";
             Statement ps = conn.createStatement();
             ResultSet rs = ps.executeQuery(sql);
@@ -96,11 +133,44 @@ public class DBTabellenController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        this.products = products;
+        this.productListe = products;
         return products;
     }
 
-    ObservableList<Product> getLager() {
+    ObservableList<Lager> getLagerListe() {
+        lagerListe = FXCollections.observableArrayList();
+        try {
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
+            Connection conn = null;
+            //conn = DriverManager.getConnection(url, "db01", "MenPfN9wzcZA");
+            conn = DriverManager.getConnection(url, "andr_user", "androiduser");
+            String sql = "select * from lager order by renr";
+            Statement ps = conn.createStatement();
+            ResultSet rs = ps.executeQuery(sql);
+
+            while (rs.next()) {
+                //
+                //System.out.print(rs.getInt(1) + " ");
+                //System.out.print(rs.getString(2) + " ");
+                //System.out.println(rs.getInt(3));
+                //System.out.print(rs.getString("prnr") + "\t");
+                //System.out.print(rs.getString("name") + "\t");
+                //System.out.println(rs.getString("menge") + "\t");
+                lagerListe.add(new Lager(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        this.lagerListe = lagerListe;
+        return lagerListe;
+    }
+
+    /*ObservableList<Product> getBelegungListe() {
         ObservableList<Product> products = FXCollections.observableArrayList();
         try {
             Class.forName("org.postgresql.Driver");
@@ -130,41 +200,7 @@ public class DBTabellenController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        this.products = products;
+        this.productListe = products;
         return products;
-    }
-
-    ObservableList<Product> getBelegung() {
-        ObservableList<Product> products = FXCollections.observableArrayList();
-        try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
-            Connection conn = null;
-            //conn = DriverManager.getConnection(url, "db01", "MenPfN9wzcZA");
-            conn = DriverManager.getConnection(url, "andr_user", "androiduser");
-            int prnr = 100;
-            String sql = "select * from produkt order by prnr";
-            Statement ps = conn.createStatement();
-            ResultSet rs = ps.executeQuery(sql);
-
-            while (rs.next()) {
-                //
-                //System.out.print(rs.getInt(1) + " ");
-                //System.out.print(rs.getString(2) + " ");
-                //System.out.println(rs.getInt(3));
-                //System.out.print(rs.getString("prnr") + "\t");
-                //System.out.print(rs.getString("name") + "\t");
-                //System.out.println(rs.getString("menge") + "\t");
-                products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3)));
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        this.products = products;
-        return products;
-    }
+    }*/
 }
