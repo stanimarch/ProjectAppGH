@@ -1,9 +1,11 @@
 import javafx.fxml.FXML;
 
-public class Controller {
-    public Main main;
 
-    public void setMain(Main main) {
+// Oberklasse für alle Controller
+public class Controller {
+    Main main;
+
+    void setMain(Main main) {
         this.main = main;
     }
 

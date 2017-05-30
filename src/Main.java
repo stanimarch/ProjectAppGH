@@ -12,6 +12,8 @@ public class Main extends Application {
     Scene scene2;
     Scene scene3;
 
+    // только для того, что бы в проблемном случае были всегда контроллеры под рукой в мейн методе
+    // пока не ещё пригодились :D
     MainWindowController controller1;
     BarcodeEinscannenWindowController controller2;
     DBTabellenController controller3;
@@ -54,13 +56,13 @@ public class Main extends Application {
             controller3 = loader.getController();
             controller3.setMain(this);
 
+            // для того, что бы все таблицы были уже готовы, и можно было и сними в DBTabellenController работать
             controller3.tabellenAnlegen();
             //controller3.aktualisieren();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void changeScene(int window) {
         if (window == 1)

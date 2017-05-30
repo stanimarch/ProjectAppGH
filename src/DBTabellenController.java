@@ -12,19 +12,23 @@ import java.sql.*;
 
 public class DBTabellenController extends Controller {
 
+    // ну я думаю, что эту "table" можно удалить,
+    // так как толку мало от этой таблицы
     @FXML
     TableView table;
 
+    // а вот эти таблцы я бы оставил
     TableView<Product> tableProdukt = new TableView<>();
     TableView<Lager> tableLager = new TableView<>();
     TableView<Belegung> tableBelegung = new TableView<>();
 
+    //в теории, если эти одну из этих 3 переменных изменить, то должно и таблица в layout изменится
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
     ObservableList<Belegung> belegungListe;
 
     @FXML
-    @Override
+    @Override // метода, что бы показать главное окно
     public void showTabellenWindow() {
         aktualisieren();
         main.changeScene(3);
@@ -68,7 +72,7 @@ public class DBTabellenController extends Controller {
         aktualisieren();
     }
 
-
+    //что бы все таблицы инициализировать. То есть, что бы появились заголовки(Spaltenname) в таблицах
     void tabellenAnlegen() {
 
         TableColumn<Product, String> idColumn = new TableColumn<>("ID");
