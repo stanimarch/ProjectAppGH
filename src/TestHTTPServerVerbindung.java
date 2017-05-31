@@ -29,7 +29,7 @@ public class TestHTTPServerVerbindung {
     }
 
     public static void main(String[] args) throws IOException, JSONException {
-        JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/test/check.php?anh=100");
+        JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/test/check.php?anh=200");
         System.out.println(json.toString());
         System.out.println(json.get("status"));
         System.out.println(json.get("result"));
