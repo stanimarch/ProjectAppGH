@@ -128,8 +128,8 @@ public class DBTabellenController extends Controller {
         tableLager.setMaxSize(500, 300);
 
 
-        TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");
-        ebeneColumn.setMinWidth(30);
+        TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNR");
+        ebeneColumn.setMinWidth(50);
         ebeneColumn.setCellValueFactory(new PropertyValueFactory<>("ebene"));
 
         TableColumn<Belegung, String> regal1Column = new TableColumn<>("REGAL 1");
