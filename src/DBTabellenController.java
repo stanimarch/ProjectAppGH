@@ -15,14 +15,8 @@ import java.sql.*;
 
 public class DBTabellenController extends Controller {
 
-    // ну я думаю, что эту "table" можно удалить,
-    // так как толку мало от этой таблицы
-    /*@FXML
-    TableView table;*/
-
     @FXML
     Pane pane;
-
     @FXML
     Text text;
     @FXML
@@ -37,22 +31,23 @@ public class DBTabellenController extends Controller {
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
     ObservableList<Belegung> belegungListe;
+    String[][] belegung;
 
-    @FXML
-    @Override // метода, что бы показать главное окно
-    public void showTabellenWindow() {
-        System.out.println("public void showTabellenWindow()");
-        aktualisieren();
-        main.changeScene(3);
-    }
 
     @FXML
     public void aktualisieren() {
         System.out.println("public void aktualisieren()");
+
         productListe = getProductListe();
         tableProdukt.setItems(productListe);
+
+
         lagerListe = getLagerListe();
         tableLager.setItems(lagerListe);
+
+        aktualisierungBelegungListe();
+        belegungListe = getBelegungListe();
+        tableBelegung.setItems(belegungListe);
     }
 
     @FXML
@@ -84,11 +79,16 @@ public class DBTabellenController extends Controller {
 
     @FXML
     public void zeigTabelleBelegung() {
-        pane.getChildren().clear();
-        text.setText("");
         System.out.println("public void zeigTabelleBelegung()");
-        if (akt.isVisible() == true)
-            akt.setVisible(false);
+
+        pane.getChildren().clear();
+        aktualisieren();
+        pane.getChildren().addAll(tableBelegung);
+        pane.setMaxSize(500, 300);
+        text.setText("Tabelle BELEGUNG");
+
+        if (akt.isVisible() == false)
+            akt.setVisible(true);
     }
 
     //что бы все таблицы инициализировать. То есть, что бы появились заголовки(Spaltenname) в таблицах
@@ -127,28 +127,31 @@ public class DBTabellenController extends Controller {
         tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
         tableLager.setMaxSize(500, 300);
 
-        /*TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");
-        ebeneColumn.setMinWidth(150);
+
+        TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNUMMER");
+        ebeneColumn.setMinWidth(30);
         ebeneColumn.setCellValueFactory(new PropertyValueFactory<>("ebene"));
 
         TableColumn<Belegung, String> regal1Column = new TableColumn<>("REGAL 1");
-        regal1Column.setMinWidth(200);
+        regal1Column.setMinWidth(100);
         regal1Column.setCellValueFactory(new PropertyValueFactory<>("regal1"));
 
         TableColumn<Belegung, String> regal2Column = new TableColumn<>("REGAL 2");
-        regal2Column.setMinWidth(150);
+        regal2Column.setMinWidth(100);
         regal2Column.setCellValueFactory(new PropertyValueFactory<>("regal2"));
 
         TableColumn<Belegung, String> regal3Column = new TableColumn<>("REGAL 3");
-        regal3Column.setMinWidth(150);
+        regal3Column.setMinWidth(100);
         regal3Column.setCellValueFactory(new PropertyValueFactory<>("regal3"));
 
         TableColumn<Belegung, String> regal4Column = new TableColumn<>("REGAL 4");
-        regal4Column.setMinWidth(150);
+        regal4Column.setMinWidth(100);
         regal4Column.setCellValueFactory(new PropertyValueFactory<>("regal4"));
 
+        aktualisierungBelegungListe();
         tableBelegung.setItems(getBelegungListe());
-        tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);*/
+        tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);
+        tableBelegung.setMaxSize(500, 300);
     }
 
     ObservableList<Product> getProductListe() {
@@ -222,28 +225,22 @@ public class DBTabellenController extends Controller {
         return lagerListe;
     }
 
-    /*ObservableList<Product> getBelegungListe() {
-        ObservableList<Product> products = FXCollections.observableArrayList();
+    void aktualisierungBelegungListe() {
+        belegung = new String[8][5];
+        for (int i = 0; i < 8; i++)
+            belegung[i][0] = (i + 1) + "";
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://dionysos.informatik.hs-augsburg.de/db01";
             Connection conn = null;
-            //conn = DriverManager.getConnection(url, "db01", "MenPfN9wzcZA");
             conn = DriverManager.getConnection(url, "andr_user", "androiduser");
-            int prnr = 100;
-            String sql = "select * from produkt order by prnr";
+            String sql = "select * from ProdLager order by ErstDat";
             Statement ps = conn.createStatement();
             ResultSet rs = ps.executeQuery(sql);
-
             while (rs.next()) {
+                belegung[rs.getInt(3) - 1][Integer.parseInt("" + rs.getString(2).charAt(1))]
+                        = "" + rs.getInt(1) + "\n(" + rs.getString(4) + ")";
                 //
-                //System.out.print(rs.getInt(1) + " ");
-                //System.out.print(rs.getString(2) + " ");
-                //System.out.println(rs.getInt(3));
-                //System.out.print(rs.getString("prnr") + "\t");
-                //System.out.print(rs.getString("name") + "\t");
-                //System.out.println(rs.getString("menge") + "\t");
-                products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
             rs.close();
             ps.close();
@@ -252,8 +249,18 @@ public class DBTabellenController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        this.productListe = products;
-        return products;
-    }*/
+    }
+
+    ObservableList<Belegung> getBelegungListe() {
+        if (belegungListe == null)
+            belegungListe = FXCollections.observableArrayList();
+        else
+            belegungListe.clear();
+
+        for (int i = 0; i < belegung.length; i++) {
+            belegungListe.add(new Belegung(belegung[i][0], belegung[i][1], belegung[i][2], belegung[i][3], belegung[i][4]));
+        }
+        return belegungListe;
+    }
 
 }

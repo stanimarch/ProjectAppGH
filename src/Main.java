@@ -58,7 +58,6 @@ public class Main extends Application {
 
             // для того, что бы все таблицы были уже готовы, и можно было и сними в DBTabellenController работать
             controller3.tabellenAnlegen();
-            //controller3.aktualisieren();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,6 +69,7 @@ public class Main extends Application {
         else if (window == 2)
             primaryStage.setScene(scene2);
         else if (window == 3) {
+            controller3.aktualisieren();
             primaryStage.setScene(scene3);
         }
     }
