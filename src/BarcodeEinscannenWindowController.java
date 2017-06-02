@@ -84,23 +84,29 @@ public class BarcodeEinscannenWindowController extends Controller {
     @FXML
     public void inLagerAblegen() throws InterruptedException {
         System.out.println("public void inLagerAblegen()");
-        progressIndicator_2.setProgress(-1);
+        progressIndicator_2.setProgress(1);
         progressIndicator_2.setVisible(true);
         try {
             JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/checkall.php");
             System.out.println(json.toString());
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
+            fehler_2.setVisible(true);
             e.printStackTrace();
         }
 
-        progressIndicator_2.setProgress(1);
         textField.setText("");
         fehler_1.setVisible(false);
         fehler_2.setVisible(false);
-        btnEinlagern.setDisable(true);
-        progressIndicator_2.setVisible(false);
-        progressIndicator_1.setProgress(-1);
+        btnEinlagern.setDisable(false);
+
+
+        Thread.sleep(1000);
+        Thread.sleep(1000);
+        Thread.sleep(1000);
         progressIndicator_1.setVisible(true);
+        progressIndicator_1.setProgress(1);
+        progressIndicator_2.setVisible(true);
+        progressIndicator_2.setProgress(1);
 
     }
 
