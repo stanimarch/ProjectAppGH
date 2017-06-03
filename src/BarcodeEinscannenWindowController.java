@@ -21,9 +21,9 @@ public class BarcodeEinscannenWindowController extends Controller {
     Text fehler_2;
 
     @FXML
-    Button abholPosition;
+    Button btn_inPosition;
     @FXML
-    Button btnEinlagern;
+    Button btn_einlagern;
 
     @FXML
     ProgressIndicator progressIndicator_1;
@@ -57,7 +57,7 @@ public class BarcodeEinscannenWindowController extends Controller {
         System.out.println("public void abholPositionFahren()");
         fehler_1.setVisible(false);
         fehler_2.setVisible(false);
-        btnEinlagern.setDisable(true);
+        btn_einlagern.setDisable(true);
         progressIndicator_2.setVisible(false);
         progressIndicator_1.setProgress(-1);
         progressIndicator_1.setVisible(true);
@@ -65,11 +65,11 @@ public class BarcodeEinscannenWindowController extends Controller {
             JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/pickup.php");
             System.out.println(json.toString());
             if (json.getString("status").equals("RBP spuckt Fehler")) {
-                btnEinlagern.setDisable(true);
+                btn_einlagern.setDisable(true);
                 progressIndicator_1.setProgress(1);
-                btnEinlagern.setDisable(false);
+                btn_einlagern.setDisable(false);
             } else {
-                btnEinlagern.setDisable(true);
+                btn_einlagern.setDisable(true);
                 fehler_1.setVisible(true);
                 throw new IOException("FEHLER!");
             }
@@ -84,29 +84,70 @@ public class BarcodeEinscannenWindowController extends Controller {
     @FXML
     public void inLagerAblegen() throws InterruptedException {
         System.out.println("public void inLagerAblegen()");
-        progressIndicator_2.setProgress(1);
-        progressIndicator_2.setVisible(true);
-        try {
-            JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/checkall.php");
-            System.out.println(json.toString());
-        } catch (IOException | JSONException e) {
-            fehler_2.setVisible(true);
-            e.printStackTrace();
-        }
-
-        textField.setText("");
-        fehler_1.setVisible(false);
+        JSONObject json_1;
+        JSONObject json_2;
         fehler_2.setVisible(false);
-        btnEinlagern.setDisable(false);
 
-
-        Thread.sleep(1000);
-        Thread.sleep(1000);
-        Thread.sleep(1000);
-        progressIndicator_1.setVisible(true);
-        progressIndicator_1.setProgress(1);
-        progressIndicator_2.setVisible(true);
-        progressIndicator_2.setProgress(1);
+        if (textField.getText().equals("100") || textField.getText().equals("200") ||
+                textField.getText().equals("300") || textField.getText().equals("400") ||
+                textField.getText().equals("500")) {
+            progressIndicator_2.setProgress(-1.0);
+            progressIndicator_2.setVisible(true);
+            try {
+                json_1 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/insert.php?anh=" + textField.getText());
+                System.out.println(json_1.toString());
+                fehler_2.setText("Das Produkt wird eingelagert! (ReNr: " + ", FaRn: " + ")");
+                fehler_2.setVisible(true);
+                try {
+                    for (int i = 0; i < 45; i++) {
+                        json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/status.php?snr=" + json_1.getString("satznr"));
+                        if (json_2.getString("status").equals("0"))
+                            System.out.println("Das Produkt wird noch eingelagert!");
+                        else if (json_2.getString("status").equals("-1")) {
+                            throw new RPException("RP-Fehler beim Einlagern!");
+                        } else {
+                            progressIndicator_2.setProgress(1);
+                            textField.setText("");
+                            fehler_1.setVisible(false);
+                            fehler_2.setText("Das Produkt wurde eingelagert :)");
+                            progressIndicator_1.setProgress(-1);
+                            progressIndicator_1.setVisible(false);
+                            btn_einlagern.setDisable(true);
+                            break;
+                        }
+                        Thread.sleep(1000);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("status.php?snr=" + json_1.getString("satznr") + ", JSONException");
+                    fehler_2.setText("Fehler: Probieren Sie es nochmal!");
+                    fehler_2.setVisible(true);
+                    progressIndicator_2.setVisible(false);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("insert.php?anh=" + textField.getText() + ", IOException");
+                fehler_2.setText("Fehler: Probieren Sie es nochmal!");
+                fehler_2.setVisible(true);
+                progressIndicator_2.setVisible(false);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                System.out.println("insert.php?anh=" + textField.getText() + ", JSONException");
+                fehler_2.setText("Fehler: Probieren Sie es nochmal!");
+                fehler_2.setVisible(true);
+                progressIndicator_2.setVisible(false);
+            } catch (RPException e) {
+                e.getMessage();
+                fehler_2.setText("Fehler: RP-Fehler beim Einlagern!");
+                fehler_2.setVisible(true);
+            }
+        } else if (textField.getText().equals("")) {
+            fehler_2.setText("Fehler: Scannen Sie den Barcode ein!");
+            fehler_2.setVisible(true);
+        } else {
+            fehler_2.setText("Fehler: Das Produktcode existiert in DB nicht!");
+            fehler_2.setVisible(true);
+        }
 
     }
 

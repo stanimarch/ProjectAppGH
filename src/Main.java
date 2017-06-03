@@ -66,8 +66,11 @@ public class Main extends Application {
     public void changeScene(int window) {
         if (window == 1)
             primaryStage.setScene(scene1);
-        else if (window == 2)
+        else if (window == 2) {
+            controller2.progressIndicator_2.setVisible(false);
+            controller2.fehler_2.setVisible(false);
             primaryStage.setScene(scene2);
+        }
         else if (window == 3) {
             controller3.aktualisieren();
             primaryStage.setScene(scene3);
