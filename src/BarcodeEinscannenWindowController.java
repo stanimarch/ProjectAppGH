@@ -125,7 +125,7 @@ public class BarcodeEinscannenWindowController extends Controller {
                 fehler_2.setText("Das Produkt wird eingelagert! (ReNr: " + ", FaRn: " + ")");
                 fehler_2.setVisible(true);
                 try {
-                    for (int i = 0; i < 45; i++) {
+                    for (int i = 0; i < 10; i++) {
                         json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/status.php?snr=" + json_1.getString("satznr"));
                         if (json_2.getString("status").equals("0")) {
                             fehler_2.setVisible(true);
