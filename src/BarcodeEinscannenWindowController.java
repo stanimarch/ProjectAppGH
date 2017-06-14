@@ -62,17 +62,17 @@ public class BarcodeEinscannenWindowController extends Controller {
         progressIndicator_1.setProgress(-1);
         progressIndicator_1.setVisible(true);
         try {
-            JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/pickup.php");
+            JSONObject json = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/pickup.php");
             System.out.println(json.toString());
-            if (json.getString("status").equals("RBP spuckt Fehler")) {
-                /*try {
+            if (json.getString("status").equals("OK")) {
+                try {
                     for (int i = 0; i < 30; i++) {
-                        JSONObject json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/obDaIst.php");
+                        JSONObject json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/status.php?snr=" + json.getString("satznr"));
                         if (json_2.getString("status").equals("0"))
-                            System.out.println("Warte");
+                            System.out.println("Warte...");
                         else if (json_2.getString("status").equals("-1")) {
                             throw new RPException("RP-Fehler beim Einlagern!");
-                        } else if (json_2.getString("status").equals("1")){
+                        } else if (json_2.getString("status").equals("1")) {
                             progressIndicator_1.setProgress(1);
                             fehler_1.setVisible(false);
                             btn_einlagern.setDisable(false);
@@ -82,27 +82,31 @@ public class BarcodeEinscannenWindowController extends Controller {
                     }
                 } catch (RPException e) {
                     e.getMessage();
-                    fehler_2.setText("rest/obDaIst.php, RP-Fehler");
-                    fehler_2.setVisible(true);
-                }*/
-                progressIndicator_1.setProgress(1); // loeschen
-                fehler_1.setVisible(false);         // loeschen
-                btn_einlagern.setDisable(false);    // loeschen
+                    progressIndicator_1.setVisible(false);
+                    fehler_1.setText("status.php?snr=" + json.getString("satznr") + ", RP-Fehler");
+                    fehler_1.setVisible(true);
+                }
             } else {
-                btn_einlagern.setDisable(true);
-                fehler_1.setVisible(true);
-                throw new IOException("FEHLER!");
+                throw new RPException("FEHLER!");
             }
         } catch (IOException e) {
             System.out.println("rest/pickup.php, IOException");
             progressIndicator_1.setVisible(false);
+            fehler_1.setText("rest/pickup.php, IOException");
             fehler_1.setVisible(true);
             e.printStackTrace();
         } catch (JSONException e) {
             System.out.println("rest/pickup.php, JSONException");
             progressIndicator_1.setVisible(false);
+            fehler_1.setText("rest/pickup.php, JSONException");
             fehler_1.setVisible(true);
             e.printStackTrace();
+        } catch (RPException e) {
+            System.out.println("rest/pickup.php, RPException");
+            progressIndicator_1.setVisible(false);
+            fehler_1.setText("Fehler: RP-Fehler beim Fahren!");
+            fehler_1.setVisible(true);
+            e.getMessage();
         }
 
     }
@@ -120,19 +124,18 @@ public class BarcodeEinscannenWindowController extends Controller {
             progressIndicator_2.setProgress(-1.0);
             progressIndicator_2.setVisible(true);
             try {
-                json_1 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/insert.php?anh=" + textField.getText());
+                json_1 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/insert.php?anh=" + textField.getText());
                 System.out.println(json_1.toString());
                 fehler_2.setText("Das Produkt wird eingelagert! (ReNr: " + ", FaRn: " + ")");
                 fehler_2.setVisible(true);
                 try {
                     for (int i = 0; i < 10; i++) {
-                        json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/status.php?snr=" + json_1.getString("satznr"));
+                        json_2 = readJsonFromUrl("https://dionysos.informatik.hs-augsburg.de/rest/api/status.php?snr=" + json_1.getString("satznr"));
                         if (json_2.getString("status").equals("0")) {
                             fehler_2.setVisible(true);
                             fehler_2.setText("Das Produkt wird noch eingelagert!");
                             System.out.println("Das Produkt wird noch eingelagert!");
-                        }
-                        else if (json_2.getString("status").equals("-1")) {
+                        } else if (json_2.getString("status").equals("-1")) {
                             progressIndicator_1.setVisible(false);
                             progressIndicator_2.setVisible(false);
                             btn_einlagern.setDisable(true);

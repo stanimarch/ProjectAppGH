@@ -108,14 +108,14 @@ public class DBTabellenController extends Controller {
 
         tableProdukt.setItems(getProductListe());
         tableProdukt.getColumns().addAll(idColumn, farbeColumn, mengeColumn);
-        tableProdukt.setMaxSize(500, 300);
+        tableProdukt.setMaxSize(510, 500);
 
 
         TableColumn<Lager, String> renrColumn = new TableColumn<>("REGALNUMMER");
         renrColumn.setMinWidth(150);
         renrColumn.setCellValueFactory(new PropertyValueFactory<>("renr"));
 
-        TableColumn<Lager, String> maxPlatzColumn = new TableColumn<>("Kapazität");
+        TableColumn<Lager, String> maxPlatzColumn = new TableColumn<>("KAPAZITÄT");
         maxPlatzColumn.setMinWidth(200);
         maxPlatzColumn.setCellValueFactory(new PropertyValueFactory<>("maxPlatz"));
 
@@ -125,7 +125,7 @@ public class DBTabellenController extends Controller {
 
         tableLager.setItems(getLagerListe());
         tableLager.getColumns().addAll(renrColumn, maxPlatzColumn, platzFreiColumn);
-        tableLager.setMaxSize(500, 300);
+        tableLager.setMaxSize(510, 500);
 
 
         TableColumn<Belegung, String> ebeneColumn = new TableColumn<>("FACHNR");
@@ -151,7 +151,7 @@ public class DBTabellenController extends Controller {
         aktualisierungBelegungListe();
         tableBelegung.setItems(getBelegungListe());
         tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);
-        tableBelegung.setMaxSize(500, 300);
+        tableBelegung.setMaxSize(510, 500);
     }
 
     ObservableList<Product> getProductListe() {
