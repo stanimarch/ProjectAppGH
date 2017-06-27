@@ -10,47 +10,71 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane cache="true" cacheHint="SPEED" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BarcodeEinscannenWindowController">
+<AnchorPane cache="true" cacheHint="SPEED" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BarcodeEinscannenWindowController">
    <children>
-      <VBox alignment="CENTER" cache="true" cacheHint="SPEED" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" cache="true" cacheHint="SPEED" prefHeight="300.0" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text cache="true" cacheHint="SPEED" layoutX="243.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Barcode einscannen:">
                <font>
-                  <Font size="20.0" />
+                  <Font size="31.0" />
                </font>
             </Text>
-            <TextField fx:id="textField" cache="true" cacheHint="SPEED" maxWidth="200.0" prefHeight="25.0" prefWidth="100.0" />
-            <VBox alignment="CENTER" cache="true" cacheHint="SPEED">
+            <TextField fx:id="textField" alignment="CENTER" cache="true" cacheHint="SPEED" maxWidth="280.0" prefHeight="100.0">
+               <font>
+                  <Font size="40.0" />
+               </font></TextField>
+            <VBox alignment="CENTER_LEFT" cache="true" cacheHint="SPEED">
                <children>
                   <HBox alignment="CENTER" cache="true" cacheHint="SPEED" prefHeight="50.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btn_inPosition" cache="true" cacheHint="SPEED" mnemonicParsing="false" onAction="#abholPositionFahren" text="In Abhol-Position fahren" />
+                        <Button fx:id="btn_inPosition" cache="true" cacheHint="SPEED" minHeight="80.0" minWidth="280.0" mnemonicParsing="false" onAction="#abholPositionFahren" prefHeight="80.0" prefWidth="280.0" text="In Abhol-Position fahren">
+                           <font>
+                              <Font size="23.0" />
+                           </font></Button>
                         <ProgressIndicator fx:id="progressIndicator_1" cache="true" cacheHint="SPEED" prefHeight="50.0" prefWidth="59.0" progress="0.0" visible="false" />
                      </children>
                   </HBox>
                   <Text fx:id="fehler_1" cache="true" cacheHint="SPEED" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Fehler: Probieren Sie es noch mal." visible="false">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="17.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="300.0" />
+                     </VBox.margin>
                   </Text>
                </children>
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin>
             </VBox>
-            <VBox alignment="CENTER" cache="true" cacheHint="SPEED">
+            <VBox alignment="CENTER_LEFT" cache="true" cacheHint="SPEED">
                <children>
                   <HBox alignment="CENTER" cache="true" cacheHint="SPEED" prefHeight="50.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btn_einlagern" cache="true" cacheHint="SPEED" disable="true" mnemonicParsing="false" onAction="#inLagerAblegen" text="Anhänger in Lager ablegen" />
+                        <Button fx:id="btn_einlagern" cache="true" cacheHint="SPEED" disable="true" minHeight="80.0" minWidth="280.0" mnemonicParsing="false" onAction="#inLagerAblegen" prefHeight="80.0" prefWidth="280.0" text="Anhänger in Lager ablegen">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Button>
                         <ProgressIndicator fx:id="progressIndicator_2" cache="true" cacheHint="SPEED" prefHeight="50.0" prefWidth="59.0" progress="0.0" visible="false" />
                      </children>
                   </HBox>
                   <Text fx:id="fehler_2" cache="true" cacheHint="SPEED" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Fehler: Das Prudukt wurde nicht eingelager." visible="false">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="17.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="300.0" />
+                     </VBox.margin>
                   </Text>
                </children>
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin>
             </VBox>
-            <Button cache="true" cacheHint="SPEED" mnemonicParsing="false" onAction="#showMainWindow" text="Zurück" />
+            <Button cache="true" cacheHint="SPEED" mnemonicParsing="false" onAction="#showMainWindow" prefHeight="80.0" prefWidth="280.0" text="Zurück">
+               <font>
+                  <Font size="23.0" />
+               </font></Button>
          </children>
       </VBox>
    </children>

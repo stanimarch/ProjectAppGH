@@ -22,12 +22,12 @@ public class DBTabellenController extends Controller {
     @FXML
     Button akt;
 
-    // а вот эти таблцы я бы оставил
+
     TableView<Product> tableProdukt = new TableView<>();
     TableView<Lager> tableLager = new TableView<>();
     TableView<Belegung> tableBelegung = new TableView<>();
 
-    //в теории, если эти одну из этих 3 переменных изменить, то должно и таблица в layout изменится
+
     ObservableList<Product> productListe;
     ObservableList<Lager> lagerListe;
     ObservableList<Belegung> belegungListe;
@@ -91,7 +91,7 @@ public class DBTabellenController extends Controller {
             akt.setVisible(true);
     }
 
-    //что бы все таблицы инициализировать. То есть, что бы появились заголовки(Spaltenname) в таблицах
+
     void tabellenAnlegen() {
 
         TableColumn<Product, String> idColumn = new TableColumn<>("ID");
@@ -144,14 +144,12 @@ public class DBTabellenController extends Controller {
         regal3Column.setMinWidth(100);
         regal3Column.setCellValueFactory(new PropertyValueFactory<>("regal3"));
 
-        TableColumn<Belegung, String> regal4Column = new TableColumn<>("REGAL 4");
-        regal4Column.setMinWidth(100);
-        regal4Column.setCellValueFactory(new PropertyValueFactory<>("regal4"));
 
         aktualisierungBelegungListe();
         tableBelegung.setItems(getBelegungListe());
-        tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column, regal4Column);
+        tableBelegung.getColumns().addAll(ebeneColumn, regal1Column, regal2Column, regal3Column);
         tableBelegung.setMaxSize(510, 500);
+        tableBelegung.setMinSize(510,500);
     }
 
     ObservableList<Product> getProductListe() {

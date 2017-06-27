@@ -7,18 +7,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
    <children>
       <VBox alignment="CENTER" layoutY="108.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="label" text="Bitte Aktion wählen:">
                <font>
-                  <Font size="20.0" />
+                  <Font size="50.0" />
                </font></Label>
             <HBox alignment="CENTER" layoutX="198.0" layoutY="175.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="btn_changeText" layoutX="198.0" layoutY="175.0" mnemonicParsing="false" onAction="#showBarcodeEinscannenWindow" text="Produkt einlesen" />
-                  <Button fx:id="btn_clear" mnemonicParsing="false" onAction="#showTabellenWindow" text="Tabellen anzeigen" />
+                  <Button fx:id="btn_changeText" layoutX="198.0" layoutY="175.0" mnemonicParsing="false" onAction="#showBarcodeEinscannenWindow" prefHeight="80.0" prefWidth="270.0" text="Produkt einlesen">
+                     <font>
+                        <Font size="28.0" />
+                     </font></Button>
+                  <Button fx:id="btn_clear" mnemonicParsing="false" onAction="#showTabellenWindow" prefHeight="80.0" prefWidth="270.0" text="Tabellen anzeigen">
+                     <font>
+                        <Font size="28.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>
